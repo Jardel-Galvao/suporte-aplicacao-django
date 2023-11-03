@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encaminhamentos Incorretos</title>
+    <style>
+        .logo {
+            width: 200px;
+        }
+
+        header {
+            background-color: #F5F5F5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(252,100,4, 0.3);
+        }
+
+        nav {
+            text-align: center;
+        }
+
+        nav li {
+            display: inline;
+            margin: -2px;
+            padding: 22px;
+            border: 1px solid transparent; 
+        }
+        nav li:hover {
+            background-color: rgba(252,100,4, 0.3);
+            border: 1px solid #FF4500;
+            border-bottom: 5px solid #FF4500;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        a {
+            color: #363636;
+        }
+
+        body {
+            font-family: Helvetica, sans-serif;
+            background-color: #FFFFFF;
+            font-size: 13px;
+            margin: 0px;
+            padding: 0px;
+            min-height: 100%;
+        }
+
+        .content {
+            padding: 0 600px 600px 600px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        #formulario {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 500px; 
+            height: 200px;
+        }
+
+        h2 {
+            color: #4F4F4F;
+        }
+
+        label {
+            flex-basis: calc(50% - 20px); 
+            margin: 10px 0;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid  rgba(252,100,4, 0.3);
+            border-radius: 4px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: left;
+        }
+        
+        .button {
+            margin: 20px 0 0 0;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .button:hover{
+            background-color: rgba(252,100,4, 0.3);
+            border: 1px solid #FF4500;
+            border-bottom: 5px solid #FF4500;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        
+        footer {
+            background-color: #F5F5F5;
+            justify-content: space-between;
+            padding: 12px;
+            font-size: 12px;
+            border-top: 1px solid rgba(252,100,4, 0.3);
+            bottom: 0;
+            display: flex;
+            position: relative;
+        }
+       #erro{
+            font-family: Helvetica, sans-serif;
+            font-color: erro;
+            font-size: 15px;
+            font-weight: bold;
+       }
+    </style>
+</head>
+<body>
+    <header>
+        <!--<div class="logo">
+            <img src="logo-tr.png" alt="Logo">
+        </div>-->
+        <nav>
+            <ul>
+                <li><a href="/">Início</a></li>
+                <li><a href="/adicionar_encaminhamentos">Adicionar Encaminhamento</a></li>
+                <li><a href="/encaminhamentos">Encaminhamentos</a></li>
+                <li><a href="/encaminhamentos-incorretos">Encaminhamentos Incorretos</a></li>
+                <li><a href="/encaminhamentos-invalidados">Encaminhamentos Invalidados</a></li>
+                <li><a href="/usuarios">Usuários</a></li>
+                <li><a href="/controle-de-meses">Controle de Meses</a></li>
+                <li><a href="/backup">Backup</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <p>O erro a seguir foi provocado durante a inclusão dos encaminhamentos:</p>
+        <p id="erro">{{ erro }}</p>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2023 - Todos os direitos reservados</p>
+        <p>Entre em contato pelo e-mail: jardel.rodrigues@thomsonreuters.com</p>
+    </footer>
+</body>
+</html>

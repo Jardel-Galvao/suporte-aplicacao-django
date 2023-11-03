@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encaminhamentos Incorretos</title>
+    <style>
+        .logo {
+            width: 200px;
+        }
+
+        header {
+            background-color: #F5F5F5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(252,100,4, 0.3);
+        }
+
+        nav {
+            text-align: center;
+        }
+
+        nav li {
+            display: inline;
+            margin: -2px;
+            padding: 22px;
+            border: 1px solid transparent; 
+        }
+        nav li:hover {
+            background-color: rgba(252,100,4, 0.3);
+            border: 1px solid #FF4500;
+            border-bottom: 5px solid #FF4500;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        a {
+            color: #363636;
+        }
+
+        body {
+            font-family: Helvetica, sans-serif;
+            background-color: #FFFFFF;
+            font-size: 13px;
+            margin: 0px;
+            padding: 0px;
+            min-height: 100%;
+        }
+
+        .content {
+            padding: 0 600px 600px 600px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #formulario {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 500px; 
+            height: 300px;
+
+        }
+
+        h2 {
+            color: #4F4F4F;
+        }
+
+        label {
+            flex-basis: calc(50% - 20px); 
+            margin: 10px 0;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid  rgba(252,100,4, 0.3);
+            border-radius: 4px;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: left;
+        }
+        
+        .button {
+            margin: 20px 0 0 0;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .button:hover{
+            background-color: rgba(252,100,4, 0.3);
+            border: 1px solid #FF4500;
+            border-bottom: 5px solid #FF4500;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        
+        footer {
+            background-color: #F5F5F5;
+            justify-content: space-between;
+            padding: 12px;
+            font-size: 12px;
+            border-top: 1px solid rgba(252,100,4, 0.3);
+            bottom: 0;
+            display: flex;
+            position: relative;
+        }
+       
+    </style>
+</head>
+<body>
+    <header>
+        <!--<div class="logo">
+            <img src="logo-tr.png" alt="Logo">
+
+              background-image: url('/img/background.jpg');
+            background-size: cover; /* Pode ajustar o valor conforme necessário */
+            background-repeat: no-repeat; /* Impede a repetição da imagem */
+            background-attachment: fixed; /* Mantém a imagem fixa enquanto rola a página */
+            position: relative;-->
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Início</a></li>
+                <li><a href="/adicionar_encaminhamentos">Adicionar Encaminhamento</a></li>
+                <li><a href="/encaminhamentos">Encaminhamentos</a></li>
+                <li><a href="/encaminhamentos-incorretos">Encaminhamentos Incorretos</a></li>
+                <li><a href="/encaminhamentos-invalidados">Encaminhamentos Invalidados</a></li>
+                <li><a href="/usuarios">Usuários</a></li>
+                <li><a href="/controle-de-meses">Controle de Meses</a></li>
+                <li><a href="/backup">Backup</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <h2>Adicionar Encaminhamento</h1>
+            <form id="formulario" action="{% url 'adicionar_encaminhamento' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+            
+                <label for="link">Link:</label>
+                <input type="url" name="link" id="link" required>
+            
+                <label for="datahora">Data/Hora Encaminhamento:</label>
+                <input type="datetime-local" name="datahora" id="datahora" required>
+            
+                <label for="tramite">Trâmite:</label>
+                <input type="number" name="tramite" id="tramite" max="9999" required>
+            
+                <label for="analista">Analista:</label>
+                <select name="analista" id="analista">
+                    {% for analista in analistas %}
+                        <option value="{{ analista.id }}">{{ analista.username }}</option>
+                    {% endfor %}
+                </select>
+            
+                <label for="classificacao">Classificação:</label>
+                <input type="text" name="classificacao" id="classificacao" maxlength="100" required>
+            
+                <label for="modulo">Módulo:</label>
+                <input type="text" name="modulo" id="modulo" maxlength="100" required>
+            
+                <label for="topico">Tópico:</label>
+                <input type="text" name="topico" id="topico" maxlength="100" required>
+            
+                <label for="descricao">Descrição do Encaminhamento:</label>
+                <textarea name="descricao" id="descricao" rows="4" cols="50" maxlength="500" required></textarea>
+                
+                <label for="justificativa">Justificativa:</label>
+                <textarea name="justificativa" id="justificativa" rows="4" cols="50" maxlength="500" required></textarea>
+            
+                <div class="checkbox-container">
+                    <label for="validado" class="checkbox-label" >Validado</label>
+                    <input name="validado" id="validado" type="checkbox">   
+                </div>
+                
+                <input type="file" name="planilha" id="planilha" onchange="toggleLinkRequired(this)">
+                <input class="button" type="submit" value="Incluir" >
+            
+            </form>
+            
+            <script>
+                function toggleLinkRequired(planilhaInput) {
+                    var linkInput = document.getElementById("link");
+                    var datahoraInput = document.getElementById("datahora");
+                    var tramiteInput = document.getElementById("tramite");
+                    var classificacaoInput = document.getElementById("classificacao");
+                    var moduloInput = document.getElementById("modulo");
+                    var topicoInput = document.getElementById("topico");
+                    var descricaoInput = document.getElementById("descricao");
+                    var justificativaInput = document.getElementById("justificativa");
+
+                    if (planilhaInput.files.length > 0) {
+                        linkInput.removeAttribute("required");
+                        datahoraInput.removeAttribute("required");
+                        tramiteInput.removeAttribute("required");
+                        classificacaoInput.removeAttribute("required");
+                        moduloInput.removeAttribute("required");
+                        topicoInput.removeAttribute("required");
+                        descricaoInput.removeAttribute("required");
+                        justificativaInput.removeAttribute("required");
+                    } else {
+                        linkInput.setAttribute("required", "required");
+                        datahoraInput.setAttribute("required", "required");
+                        tramiteInput.setAttribute("required", "required");
+                        classificacaoInput.setAttribute("required", "required");
+                        moduloInput.setAttribute("required", "required");
+                        topicoInput.setAttribute("required", "required");
+                        descricaoInput.setAttribute("required", "required");
+                        justificativaInput.setAttribute("required", "required");
+                    }
+                }
+            </script>
+            
+    </div>
+    <footer class="footer">
+        <p>&copy; 2023 - Todos os direitos reservados</p>
+        <p>Entre em contato pelo e-mail: jardel.rodrigues@thomsonreuters.com</p>
+    </footer>
+</body>
+
+</html>
