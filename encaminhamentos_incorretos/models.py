@@ -18,7 +18,7 @@ class EncaminhamentoIncorreto(Encaminhamento):
     desc_encaminhamento = models.TextField(max_length=500, blank=False)
     validado = models.BooleanField(null=False, default=False)
     concordancia = models.BooleanField(null=False, default=False)
-    analise_analista = models.TextField(max_length=500, blank=True)
+    justificativa = models.TextField(max_length=500, blank=True)
 
     def __str__(self) -> str:
         return f"{self.link}"

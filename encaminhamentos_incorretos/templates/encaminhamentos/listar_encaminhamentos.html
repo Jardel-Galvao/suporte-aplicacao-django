@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encaminhamentos Incorretos</title>
+    <style>
+        header {
+            background-color: #F5F5F5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(252,100,4, 0.3);
+        }
+
+        nav {
+            text-align: center;
+        }
+
+        nav li {
+            display: inline;
+            margin: -2px;
+            padding: 22px;
+            border: 1px solid transparent; 
+        }
+        nav li:hover {
+            background-color: rgba(252,100,4, 0.3);
+            border: 1px solid #FF4500;
+            border-bottom: 5px solid #FF4500;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        a {
+            color: #363636;
+        }
+
+        body {
+            font-family: Helvetica, sans-serif;
+            background-color: #FFFFFF;
+            font-size: 13px;
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+        .content {
+            padding: 0 600px 600px 600px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            color: #4F4F4F;
+        }
+
+        label {
+            flex-basis: calc(50% - 20px); 
+            margin: 10px 0;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid  rgba(252,100,4, 0.3);
+            border-radius: 4px;
+        }
+
+        footer {
+            background-color: #F5F5F5;
+            padding: 12px;
+            font-size: 12px;
+            border-top: 1px solid rgba(252,100,4, 0.3);
+            display: flex;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Início</a></li>
+                <li><a href="/adicionar_encaminhamentos">Adicionar Encaminhamento</a></li>
+                <li><a href="/encaminhamentos">Encaminhamentos</a></li>
+                <li><a href="/listar_encaminhamentos_incorretos">Encaminhamentos Incorretos</a></li>
+                <li><a href="/encaminhamentos-invalidados">Encaminhamentos Invalidados</a></li>
+                <li><a href="/usuarios">Usuários</a></li>
+                <li><a href="/controle-de-meses">Controle de Meses</a></li>
+                <li><a href="/backup">Backup</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <h2>Adicionar Encaminhamento</h2>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2023 - Todos os direitos reservados</p>
+        <p>Entre em contato pelo e-mail: jardel.rodrigues@thomsonreuters.com</p>
+    </footer>
+</body>
+</html>

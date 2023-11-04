@@ -12,16 +12,10 @@
 
         header {
             background-color: #F5F5F5;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            
             padding: 12px 20px;
             font-size: 13px;
             border-bottom: 1px solid rgba(252,100,4, 0.3);
-        }
-
-        nav {
-            text-align: center;
         }
 
         nav li {
@@ -30,6 +24,11 @@
             padding: 22px;
             border: 1px solid transparent; 
         }
+
+        nav ul {
+            text-align: right;
+        }
+
         nav li:hover {
             background-color: rgba(252,100,4, 0.3);
             border: 1px solid #FF4500;
@@ -40,6 +39,7 @@
 
         a {
             color: #363636;
+            text-decoration: none;
         }
 
         body {
@@ -112,7 +112,6 @@
             display: flex;
             position: relative;
         }
-       
     </style>
 </head>
 <body>
@@ -129,8 +128,8 @@
         <nav>
             <ul>
                 <li><a href="/">Início</a></li>
-                <li><a href="/adicionar_encaminhamentos">Adicionar Encaminhamento</a></li>
-                <li><a href="/encaminhamentos">Encaminhamentos</a></li>
+                <li><a href="/adicionar_encaminhamentos_form">Adicionar Encaminhamento</a></li>
+                <li><a href="/listar_encaminhamentos">Encaminhamentos</a></li>
                 <li><a href="/encaminhamentos-incorretos">Encaminhamentos Incorretos</a></li>
                 <li><a href="/encaminhamentos-invalidados">Encaminhamentos Invalidados</a></li>
                 <li><a href="/usuarios">Usuários</a></li>
@@ -142,7 +141,7 @@
     </header>
     <div class="content">
         <h2>Adicionar Encaminhamento</h1>
-            <form id="formulario" action="{% url 'adicionar_encaminhamento' %}" method="post" enctype="multipart/form-data">
+            <form id="formulario" action="{% url 'adicionar_encaminhamentos' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
             
                 <label for="link">Link:</label>
@@ -171,23 +170,25 @@
                 <input type="text" name="topico" id="topico" maxlength="100" required>
             
                 <label for="descricao">Descrição do Encaminhamento:</label>
-                <textarea name="descricao" id="descricao" rows="4" cols="50" maxlength="500" required></textarea>
+                <textarea name="descricao" id="descricao" rows="4" cols="50" maxlength="500" required disabled></textarea>
                 
                 <label for="justificativa">Justificativa:</label>
-                <textarea name="justificativa" id="justificativa" rows="4" cols="50" maxlength="500" required></textarea>
+                <textarea name="justificativa" id="justificativa" rows="4" cols="50" maxlength="500" required disabled></textarea>
             
                 <div class="checkbox-container">
-                    <label for="validado" class="checkbox-label" >Validado</label>
-                    <input name="validado" id="validado" type="checkbox">   
+                    <label for="incorreto" class="checkbox-label" >Incorreto</label>
+                    <input name="incorreto" id="incorreto" type="checkbox" onchange="toggleFieldDisabled(this)">   
+                    <label for="validado" class="checkbox-label">Validado</label>
+                    <input name="validado" id="validado" type="checkbox" disabled>   
                 </div>
                 
-                <input type="file" name="planilha" id="planilha" onchange="toggleLinkRequired(this)">
+                <input type="file" name="planilha" id="planilha" onchange="toggleFieldsRequired(this)">
                 <input class="button" type="submit" value="Incluir" >
             
             </form>
             
             <script>
-                function toggleLinkRequired(planilhaInput) {
+                function toggleFieldsRequired(planilhaInput) {
                     var linkInput = document.getElementById("link");
                     var datahoraInput = document.getElementById("datahora");
                     var tramiteInput = document.getElementById("tramite");
@@ -217,6 +218,22 @@
                         justificativaInput.setAttribute("required", "required");
                     }
                 }
+
+                function toggleFieldDisabled(incorretoCheckbox) {
+                    var justificativaInput = document.getElementById("justificativa");
+                    var descricaoInput = document.getElementById("descricao");
+                    var validadoInput = document.getElementById("validado");
+                
+                    if (incorretoCheckbox.checked) {
+                        justificativaInput.disabled = false;
+                        descricaoInput.disabled = false;
+                        validadoInput.disabled = false;
+                    } else {
+                        justificativaInput.disabled = true;
+                        descricaoInput.disabled = true;
+                        validadoInput.disabled = true;
+                    }
+                } 
             </script>
             
     </div>
