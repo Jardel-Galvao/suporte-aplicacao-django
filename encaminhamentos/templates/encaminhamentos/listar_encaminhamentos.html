@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encaminhamentos Incorretos</title>
+    <style>
+        header {
+            background-color: #F5F5F5;
+            padding: 12px 20px;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(252,100,4, 0.3);
+        }
+
+        nav li {
+            display: inline;
+            margin: -2px;
+            padding: 22px;
+            border: 1px solid transparent; 
+        }
+
+        nav ul {
+            text-align: right;
+        }
+
+        nav li:hover {
+            background-color: rgba(252,100,4, 0.3);
+            border: 1px solid #FF4500;
+            border-bottom: 5px solid #FF4500;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        a {
+            color: #363636;
+            text-decoration: none;
+        }
+
+        body {
+            font-family: Helvetica, sans-serif;
+            background-color: #FFFFFF;
+            font-size: 13px;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+             flex-direction: column;
+        }
+
+        .content {
+            padding: 0 600px 600px 600px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            color: #4F4F4F;
+        }
+
+        label {
+            flex-basis: calc(50% - 20px); 
+            margin: 10px 0;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid  rgba(252,100,4, 0.3);
+            border-radius: 4px;
+        }
+
+        footer {
+            background-color: #F5F5F5;
+            font-size: 12px;
+            border-top: 1px solid rgba(252, 100, 4, 0.3);
+            position: flex;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex; 
+            justify-content: space-between; 
+        }
+
+        footer p{
+            padding: 15px;
+        }
+        
+        .tipo-encaminhamento {
+            display: flex; 
+            justify-content: space-between;     
+        }
+
+        .tipo-encaminhamento button:hover{
+            color: #FF4500;
+        }
+        
+        .tabela-encaminhamentos {
+            margin: 15px 0px 0px 0px;
+            border-collapse: collapse;
+            width: 200vh;
+            
+        }
+
+        .tabela-encaminhamentos td{
+            border: 1px solid rgba(252, 100, 4, 0.3);
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #F5F5F5; 
+            color: #363636; 
+            padding: 15px;
+            border-collapse: collapse;
+            border: 1px solid rgba(252, 100, 4, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Início</a></li>
+                <li><a href="/adicionar_encaminhamentos">Adicionar Encaminhamento</a></li>
+                <li><a href="/listar_encaminhamentos">Encaminhamentos</a></li>
+                <li><a href="/listar_usuarios">Usuários</a></li>
+                <li><a href="/dias_atendidos">Dias atendidos</a></li>
+                <li><a href="/backup">Backup</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <h2>Adicionar Encaminhamento</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="tipo-encaminhamento">
+                <select name="tipo_encaminhamento">
+                    <option value="">Selecione</option>
+                    <option value="encaminhamentos">Encaminhamentos</option>
+                    <option value="encaminhamentos-incorretos">Encaminhamentos Incorretos</option>
+                    <option value="encaminhamentos-invalidados">Encaminhamentos Invalidados</option>
+                </select>
+                <button type="submit">Listar</button>
+             </div>
+        </form>
+        <table class="tabela-encaminhamentos">
+            <tr>
+                <th>Data/Hora</th>
+                <th>SS</th>
+                <th>Trâmite</th>
+                <th>Analista</th>
+                <th>Classificação</th>
+                <th>Módulo</th>
+                <th>Tópico</th>
+                <th>Desc Encaminhamento</th>
+                <th>Justificativa</th>
+            </tr>
+            {% for encaminhamento in encaminhamentos %}
+            <tr>
+                <td>{{ encaminhamento.datahora|date:"Y-m-d" }} / {{ encaminhamento.datahora|time:"H:i" }}</td>
+                <td>{{encaminhamento.link}}</td>
+                <td>{{encaminhamento.tramite}}</td>
+                <td>{{encaminhamento.analista}}</td>
+                <td>{{encaminhamento.classificacao}}</td>
+                <td>{{encaminhamento.modulo}}</td>
+                <td>{{encaminhamento.topico}}</td>
+                <td>{{encaminhamento.desc_encaminhamento}}</td>
+                <td>{{encaminhamento.justificativa}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2023 - Todos os direitos reservados</p>
+        <p>Entre em contato pelo e-mail: jardel.rodrigues@thomsonreuters.com</p>
+    </footer>
+</body>
+</html>

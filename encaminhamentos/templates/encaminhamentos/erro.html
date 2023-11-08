@@ -11,16 +11,9 @@
 
         header {
             background-color: #F5F5F5;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 12px 20px;
             font-size: 13px;
             border-bottom: 1px solid rgba(252,100,4, 0.3);
-        }
-
-        nav {
-            text-align: center;
         }
 
         nav li {
@@ -29,6 +22,11 @@
             padding: 22px;
             border: 1px solid transparent; 
         }
+
+        nav ul {
+            text-align: right;
+        }
+
         nav li:hover {
             background-color: rgba(252,100,4, 0.3);
             border: 1px solid #FF4500;
@@ -39,6 +37,7 @@
 
         a {
             color: #363636;
+            text-decoration: none;
         }
 
         body {
@@ -130,17 +129,15 @@
                 <li><a href="/">Início</a></li>
                 <li><a href="/adicionar_encaminhamentos">Adicionar Encaminhamento</a></li>
                 <li><a href="/encaminhamentos">Encaminhamentos</a></li>
-                <li><a href="/encaminhamentos-incorretos">Encaminhamentos Incorretos</a></li>
-                <li><a href="/encaminhamentos-invalidados">Encaminhamentos Invalidados</a></li>
-                <li><a href="/usuarios">Usuários</a></li>
-                <li><a href="/controle-de-meses">Controle de Meses</a></li>
+                <li><a href="/listar_usuarios">Usuários</a></li>
+                <li><a href="/dias_atendidos">Dias atendidos</a></li>
                 <li><a href="/backup">Backup</a></li>
                 <li><a href="/logout">Logout</a></li>
             </ul>
         </nav>
     </header>
     <div class="content">
-        <p>O erro a seguir foi provocado durante a inclusão dos encaminhamentos:</p>
+        <p>O erro a seguir foi provocado:</p>
         <p id="erro">{{ erro }}</p>
     </div>
     <footer class="footer">

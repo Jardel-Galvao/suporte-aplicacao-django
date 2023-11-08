@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="styles.css"> <!-- You can link to a separate CSS file for styling -->
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+            background-color: #FFFFFF;
+            font-size: 13px;
+            margin: 0px;
+            padding: 0px;
+            min-height: 100vh;
+        }
+    
+        .content {
+            padding: 200px 600px 600px 600px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        #formulario {
+            display: flex;
+            flex-direction: column; /* Change from flex-wrap: wrap to flex-direction: column */
+            align-items: center; /* Center align the form content */
+            width: 500px;
+            height: 300px;
+            text-align: center;
+        }
+    
+        .button {
+            margin: 20px 0 0 0;
+            border: 1px solid #1C1C1C;
+            width: 50%;
+            height: 30px;
+        }
+    
+        .button:hover {
+            background-color: rgba(252, 100, 4, 0.3);
+            border: 1px solid #FF4500;
+        }
+    
+        label {
+            flex-basis: calc(50% - 20px);
+            margin: 10px 0;
+        }
+    
+        input, select, textarea {
+            text-align: center;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(252, 100, 4, 0.3);
+            border-radius: 4px;
+            margin: 10px;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="content">
+        <form id="formulario"action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <h2>Suporte as Unidades</h2>
+            <input type="text" placeholder="Username" name="username" required>
+            <input type="password" placeholder="Password" name="password" required>
+            <button class="button"type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>

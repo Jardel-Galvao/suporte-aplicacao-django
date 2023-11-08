@@ -13,6 +13,7 @@ class Encaminhamento(models.Model):
 
     def __str__(self) -> str:
         return f"{self.link}"
+    
 
 class EncaminhamentoIncorreto(Encaminhamento):
     desc_encaminhamento = models.TextField(max_length=500, blank=False)
@@ -23,9 +24,10 @@ class EncaminhamentoIncorreto(Encaminhamento):
     def __str__(self) -> str:
         return f"{self.link}"
     
-class IgnorarMes(models.Model):
+class DiasAusencia(models.Model):
     analista = models.ForeignKey(User, on_delete=models.CASCADE)
-    mes = models.IntegerField(null=False)
+    inicio = models.DateTimeField(null=False)
+    fim = models.DateTimeField(null=False)
 
     def __str__(self) -> str:
-        return f"{self.mes} + {self.analista}"
+        return f"{self.inicio}/{self.fim} - {self.analista}"

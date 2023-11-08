@@ -12,7 +12,6 @@
 
         header {
             background-color: #F5F5F5;
-            
             padding: 12px 20px;
             font-size: 13px;
             border-bottom: 1px solid rgba(252,100,4, 0.3);
@@ -46,25 +45,37 @@
             font-family: Helvetica, sans-serif;
             background-color: #FFFFFF;
             font-size: 13px;
-            margin: 0px;
-            padding: 0px;
-            min-height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 10vh;
         }
 
         .content {
-            padding: 0 600px 600px 600px;
+            padding: 0 600px 0 600px;
             margin: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+        
+        footer {
+            background-color: #F5F5F5;
+            justify-content: space-between;
+            padding: 12px;
+            font-size: 12px;
+            border-top: 1px solid rgba(252, 100, 4, 0.3);
+            display: flex;
+            position: relative;
+            margin-top: auto; /* Mantém o rodapé na parte inferior */
+        }
+
 
         #formulario {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            width: 500px; 
-            height: 300px;
 
         }
 
@@ -83,15 +94,17 @@
             border: 1px solid  rgba(252,100,4, 0.3);
             border-radius: 4px;
         }
+        
         .checkbox-container {
             display: flex;
             align-items: left;
         }
         
         .button {
-            margin: 20px 0 0 0;
+            margin: 20px 0 50px 0;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
+            border-bottom: 5px solid #FF4500;
         }
 
         .button:hover{
@@ -102,16 +115,27 @@
             border-top-right-radius: 10px;
         }
         
-        footer {
-            background-color: #F5F5F5;
-            justify-content: space-between;
-            padding: 12px;
-            font-size: 12px;
-            border-top: 1px solid rgba(252,100,4, 0.3);
-            bottom: 0;
-            display: flex;
-            position: relative;
+        .tabela-encaminhamentos {
+            margin: 15px 0px 0px 0px;
+            border-collapse: collapse;
+            width: 100vh;
+            
         }
+
+        .tabela-encaminhamentos td{
+            border: 1px solid rgba(252, 100, 4, 0.3);
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #F5F5F5; 
+            color: #363636; 
+            padding: 15px;
+            border-collapse: collapse;
+            border: 1px solid rgba(252, 100, 4, 0.3);
+        }
+        
     </style>
 </head>
 <body>
@@ -128,12 +152,10 @@
         <nav>
             <ul>
                 <li><a href="/">Início</a></li>
-                <li><a href="/adicionar_encaminhamentos_form">Adicionar Encaminhamento</a></li>
+                <li><a href="/adicionar_encaminhamentos">Adicionar Encaminhamento</a></li>
                 <li><a href="/listar_encaminhamentos">Encaminhamentos</a></li>
-                <li><a href="/encaminhamentos-incorretos">Encaminhamentos Incorretos</a></li>
-                <li><a href="/encaminhamentos-invalidados">Encaminhamentos Invalidados</a></li>
-                <li><a href="/usuarios">Usuários</a></li>
-                <li><a href="/controle-de-meses">Controle de Meses</a></li>
+                <li><a href="/listar_usuarios">Usuários</a></li>
+                <li><a href="/dias_atendidos">Dias atendidos</a></li>
                 <li><a href="/backup">Backup</a></li>
                 <li><a href="/logout">Logout</a></li>
             </ul>
@@ -186,7 +208,24 @@
                 <input class="button" type="submit" value="Incluir" >
             
             </form>
-            
+            {% if messages %}
+            <table class="tabela-encaminhamentos">
+                <thead>
+                    <tr>
+                        <th>Encaminhamentos já cadastrados</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for message in messages %}
+                    <tr>
+                        <td>{{ message}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+
+            </table>
+            {% endif %}
             <script>
                 function toggleFieldsRequired(planilhaInput) {
                     var linkInput = document.getElementById("link");

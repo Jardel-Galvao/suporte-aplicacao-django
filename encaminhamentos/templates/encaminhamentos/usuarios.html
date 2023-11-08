@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encaminhamentos Incorretos</title>
+    <style>
+        header {
+            background-color: #F5F5F5;
+            padding: 12px 20px;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(252,100,4, 0.3);
+        }
+
+        nav li {
+            display: inline;
+            margin: -2px;
+            padding: 22px;
+            border: 1px solid transparent; 
+        }
+
+        nav ul {
+            text-align: right;
+        }
+
+        nav li:hover {
+            background-color: rgba(252,100,4, 0.3);
+            border: 1px solid #FF4500;
+            border-bottom: 5px solid #FF4500;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        a {
+            color: #363636;
+            text-decoration: none;
+        }
+
+        body {
+            font-family: Helvetica, sans-serif;
+            background-color: #FFFFFF;
+            font-size: 13px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content {
+            padding: 0 600px 0 600px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        footer {
+            background-color: #F5F5F5;
+            justify-content: space-between;
+            padding: 12px;
+            font-size: 12px;
+            border-top: 1px solid rgba(252, 100, 4, 0.3);
+            display: flex;
+            position: relative;
+            margin-top: auto; /* Mantém o rodapé na parte inferior */
+        }
+
+        h2 {
+            color: #4F4F4F;
+        }
+
+        label {
+            flex-basis: calc(50% - 20px); 
+            margin: 10px 0;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid  rgba(252,100,4, 0.3);
+            border-radius: 4px;
+            margin: 10px 0px 10px 0px;
+        }
+
+        th {
+            background-color: #F5F5F5; 
+            color: #363636; 
+            padding: 15px;
+            border-collapse: collapse;
+            border: 1px solid rgba(252, 100, 4, 0.3);
+        }
+        
+        .tabela-usuarios {
+            margin: 10px;
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .tabela-usuarios td{
+            border: 1px solid rgba(252, 100, 4, 0.3);
+            padding: 8px;
+            text-align: left;
+            
+        }
+
+        .button {
+            margin: 20px 0 0 0;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .button:hover{
+            background-color: rgba(252,100,4, 0.3);
+            border: 1px solid #FF4500;
+            border-bottom: 5px solid #FF4500;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        #formulario {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 500px; 
+            height: 500px;
+            margin-bottom: 20px; /* Adicione uma margem inferior para criar espaço */
+        }
+
+        body h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Início</a></li>
+                <li><a href="/adicionar_encaminhamentos/">Adicionar Encaminhamento</a></li>
+                <li><a href="/listar_encaminhamentos">Encaminhamentos</a></li>
+                <li><a href="/listar_usuarios">Usuários</a></li>
+                <li><a href="/dias_atendidos">Dias atendidos</a></li>
+                <li><a href="/backup">Backup</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <div>
+            <h2>Adicionar usuário</h2>
+            <form id="formulario" action="{% url 'listar_usuarios' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <label for="username">Username</label>
+                <input type="username" name="username" id="username" required>
+
+                <label for="nome">Nome</label>
+                <input type="nome" name="nome" id="nome" required>
+
+                <label for="sobrenome">Sobrenome</label>
+                <input type="sobrenome" name="sobrenome" id="sobrenome" required>
+
+                <label for="password">Senha</label>
+                <input type="password" name="password" id="password" required>
+
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+                
+                <input class="button" type="submit" value="Incluir" >
+            </form>
+        </div>
+            <h2>Usuários</h2>
+            <table class="tabela-usuarios">
+                <tr>
+                    <th>Usuario</th>
+                    <th>Nome</th>
+                </tr>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.username}}</td>
+                    <td>{{ usuario.first_name}} {{ usuario.last_name}}</td>
+                {% endfor %}
+            </table>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2023 - Todos os direitos reservados</p>
+        <p>Entre em contato pelo e-mail: jardel.rodrigues@thomsonreuters.com</p>
+    </footer>
+</body>
+</html>

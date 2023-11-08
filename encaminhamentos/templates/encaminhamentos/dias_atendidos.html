@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encaminhamentos Incorretos</title>
+    <style>
+        header {
+            background-color: #F5F5F5;
+            padding: 12px 20px;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(252,100,4, 0.3);
+        }
+
+        nav li {
+            display: inline;
+            margin: -2px;
+            padding: 22px;
+            border: 1px solid transparent; 
+        }
+
+        nav ul {
+            text-align: right;
+        }
+
+        nav li:hover {
+            background-color: rgba(252,100,4, 0.3);
+            border: 1px solid #FF4500;
+            border-bottom: 5px solid #FF4500;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        a {
+            color: #363636;
+            text-decoration: none;
+        }
+
+        
+        body {
+            font-family: Helvetica, sans-serif;
+            background-color: #FFFFFF;
+            font-size: 13px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content {
+            padding: 0 600px 0 600px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        footer {
+            background-color: #F5F5F5;
+            justify-content: space-between;
+            padding: 12px;
+            font-size: 12px;
+            border-top: 1px solid rgba(252, 100, 4, 0.3);
+            display: flex;
+            position: relative;
+            margin-top: auto; /* Mantém o rodapé na parte inferior */
+        }
+
+        h2 {
+            color: #4F4F4F;
+        }
+
+        label {
+            flex-basis: calc(50% - 20px); 
+            margin: 10px 0;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid  rgba(252,100,4, 0.3);
+            border-radius: 4px;
+        }
+
+        th {
+            background-color: #F5F5F5; 
+            color: #363636; 
+            padding: 15px;
+            border-collapse: collapse;
+            border: 1px solid rgba(252, 100, 4, 0.3);
+        }
+        .tabela-usuarios {
+            margin: 15px 0px 0px 0px;
+            border-collapse: collapse;
+            width: 200vh;
+            text-align: left;
+        }
+
+        .tabela-usuarios td{
+            border: 1px solid rgba(252, 100, 4, 0.3);
+            padding: 8px;
+            align: left;
+        }
+
+        .button {
+            margin: 20px 0 150px 0;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom: 5px solid #FF4500;
+        }
+
+        .button#remover{
+            margin: 0;
+            width: 20%;
+        }
+
+        .button:hover{
+            background-color: rgba(252,100,4, 0.3);
+            border: 1px solid #FF4500;
+            border-bottom: 5px solid #FF4500;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        #formulario {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 500px; 
+            height: 300px;
+
+        }
+        body h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Início</a></li>
+                <li><a href="/adicionar_encaminhamentos">Adicionar Encaminhamento</a></li>
+                <li><a href="/listar_encaminhamentos">Encaminhamentos</a></li>
+                <li><a href="/listar_usuarios">Usuários</a></li>
+                <li><a href="/dias_atendidos">Dias atendidos</a></li>
+                <li><a href="/backup">Backup</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <div>
+            <h2>Adicionar mes a ignorar</h2>
+            <form id="formulario" action="{% url 'dias_atendidos' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <label for="analista">Analista:</label>
+                <select name="analista" id="analista">
+                    {% for analista in analistas %}
+                        <option value="{{ analista.id }}">{{ analista.username }}</option>
+                    {% endfor %}
+                </select>
+                
+                <label for="inicio">Data inicio</label>
+                <input type="date" name="inicio" id="inicio" required >
+
+                <label for="fim">Data Fim</label>
+                <input type="date" name="fim" id="fim" required>
+                
+                <input class="button" type="submit" value="Incluir" >
+            </form>
+        </div>
+        <table class="tabela-usuarios">
+            <tr>
+                <th>Usuario</th>
+                <th>Período</th>
+                <th>Remover</th>
+            </tr>
+            {% for mes in meses %}
+            <tr>
+                <form  action="{% url 'dias_atendidos' %}" method="post">
+                    {% csrf_token %}
+                    <td name="analista">{{ mes.analista }}</td>
+                    <td name="mes">{{ mes.inicio | date:"d/m/Y"}}  -  {{ mes.fim|date:"d/m/Y" }}</td>
+
+                    <input type="hidden" name="id" value="{{ mes.id }}">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <td><input class="button" id="remover" type="submit" value="Remover"></td>
+                </form>
+            <tr>
+            {% endfor %}
+        </table>
+    
+    </div>
+    <footer class="footer">
+        <p>&copy; 2023 - Todos os direitos reservados</p>
+        <p>Entre em contato pelo e-mail: jardel.rodrigues@thomsonreuters.com</p>
+    </footer>
+</body>
+</html>

@@ -1,7 +1,7 @@
 from django.contrib import admin
-from encaminhamentos_incorretos.models import Encaminhamento, EncaminhamentoIncorreto, IgnorarMes
+from encaminhamentos.models import Encaminhamento, EncaminhamentoIncorreto, DiasAusencia
 
 # Register your models here.
 admin.site.register(Encaminhamento)
 admin.site.register(EncaminhamentoIncorreto)
-admin.site.register(IgnorarMes)
+admin.site.register(DiasAusencia)
